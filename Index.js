@@ -39,24 +39,24 @@ messaging.peerSocket.onclose = () => {
 
 
 function updateSensors() {
-// Update Steps taken
-sensorSteps.text = today.adjusted.steps || 0;
+  // Update Steps taken
+  sensorSteps.text = today.adjusted.steps || 0;
 
-// Update Heart Rate
-hrm.start();
+  // Update Heart Rate
+  hrm.start();
 }
+
 //Creating HRM
 var hrm = new HeartRateSensor();
 
 hrm.onreading = function() {
-// Peek the current sensor values
-txtbpm.text = hrm.heartRate || 1;
-// Stop monitoring the sensor
-
+  // Peek the current sensor values
+  txtbpm.text = hrm.heartRate || 1;
+  // Stop monitoring the sensor
 }
 
 let option = 0;
-    
+
 // Rotate the hands every tick
 function updateClock() {
   let today = new Date();
@@ -64,10 +64,10 @@ function updateClock() {
   let mins = util.zeroPad(today.getMinutes());
   let secs = util.zeroPad(today.getSeconds());
 
-txttime1.text = `${hours}`
-txttime2.text = `${mins}`
-txttime3.text = `${secs}`
- let year = today.getFullYear();
+  txttime1.text = `${hours}`
+  txttime2.text = `${mins}`
+  txttime3.text = `${secs}`
+  let year = today.getFullYear();
   let mon = util.zeroPad(today.getMonth()+1);
   let day = util.zeroPad(today.getDate());
   if (option == 1) {
@@ -75,22 +75,23 @@ txttime3.text = `${secs}`
     mon = util.zeroPad(today.getUTCMonth()+1);
     day = util.zeroPad(today.getUTCDate());
   }
-txtdate.text = `${mon},${day},${year}`
+  txtdate.text = `${mon},${day},${year}`
 }
+
 const fieldMap = {
- steps: {name: "STEPS", unit: "" },
-  };
+  steps: {name: "STEPS", unit: "" },
+};
 
 
 //Steps
 ["local", "adjusted"].forEach(scope => {
- console.log(`Activity(${scope}):`)
- let activity = (today)[scope]
- for (let field in fieldMap) {
- if ((activity)[field] !== undefined) {
- txtsteps.text= ` ${fieldMap[field].name} = ${activity[field]} ${fieldMap[field].unit}`
- }
- }
+  console.log(`Activity(${scope}):`)
+  let activity = (today)[scope]
+  for (let field in fieldMap) {
+    if ((activity)[field] !== undefined) {
+      txtsteps.text = ` ${fieldMap[field].name} = ${activity[field]} ${fieldMap[field].unit}`
+    }
+  }
 })
 
 
